@@ -1,0 +1,32 @@
+{
+  "name": "marginx-lp-staking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnbuKannappan/marginX-lp-staking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnbuKannappan/marginX-lp-staking/issues"
+  },
+  "homepage": "https://github.com/AnbuKannappan/marginX-lp-staking#readme",
+  "devDependencies": {
+    "hardhat": "^2.12.2"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.2",
+    "@openzeppelin/contracts": "^4.8.0",
+    "@openzeppelin/contracts-upgradeable": "^4.8.0",
+    "@openzeppelin/hardhat-upgrades": "^1.21.0",
+    "ethers": "^5.7.2",
+    "openzeppelin-contracts": "^4.0.0"
+  }
+}
