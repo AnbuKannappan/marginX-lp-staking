@@ -33,11 +33,13 @@ contract LiquidityStakingV1 is
     IERC20 stakedToken,
     IERC20 rewardsToken,
     address fxBridge,
+    bytes32 mmcontract,
+    bytes32 targetIBC,
     address rewardsTreasury,
     uint256 distributionStart,
     uint256 distributionEnd
   )
-    LS1Borrowing(stakedToken, rewardsToken, fxBridge, rewardsTreasury, distributionStart, distributionEnd)
+    LS1Borrowing(stakedToken, rewardsToken, fxBridge, mmcontract, targetIBC, rewardsTreasury, distributionStart, distributionEnd)
   {}
 
   // ============ External Functions ============

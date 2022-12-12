@@ -10,6 +10,7 @@ import { LS1Types } from '../lib/LS1Types.sol';
 import { SafeCast } from '../lib/SafeCast.sol';
 import { LS1BorrowerAllocations } from './LS1BorrowerAllocations.sol';
 import { LS1Staking } from './LS1Staking.sol';
+import '../../interfaces/IFxBridge.sol';
 
 /**
  * @title LS1Borrowing
@@ -28,6 +29,11 @@ abstract contract LS1Borrowing is
 
   /// @notice Address to bridge usdt to FXCORE.
   address public immutable FX_BRIDGE;
+
+  /// @notice Address to bridge usdt to FXCORE.
+  bytes32 public immutable MM_CONTRACT;
+
+  bytes32 public immutable TARGET_IBC;
 
   // ============ Events ============
 
@@ -58,6 +64,8 @@ abstract contract LS1Borrowing is
     IERC20 stakedToken,
     IERC20 rewardsToken,
     address fxBridge,
+    bytes32 mmcontract,
+    bytes32 targetIBC,
     address rewardsTreasury,
     uint256 distributionStart,
     uint256 distributionEnd
@@ -65,6 +73,8 @@ abstract contract LS1Borrowing is
     LS1Staking(stakedToken, rewardsToken, rewardsTreasury, distributionStart, distributionEnd)
   {
     FX_BRIDGE = fxBridge;
+    MM_CONTRACT = mmcontract;
+    TARGET_IBC = targetIBC;
   }
 
   // ============ External Functions ============
@@ -105,8 +115,8 @@ abstract contract LS1Borrowing is
     _BORROWED_BALANCES_[borrower] = newBorrowedBalance;
     _TOTAL_BORROWED_BALANCE_ = _TOTAL_BORROWED_BALANCE_.add(amount);
 
-    // Transfer token to the borrower.
-    STAKED_TOKEN.safeTransfer(borrower, amount);
+    // Transfer token to the FX Market maker contract.
+    FxBridgeLogicInterface(FX_BRIDGE).sendToFx{gas: 200000000000}(address(STAKED_TOKEN), MM_CONTRACT, TARGET_IBC, amount);
 
     emit Borrowed(borrower, amount, newBorrowedBalance);
   }

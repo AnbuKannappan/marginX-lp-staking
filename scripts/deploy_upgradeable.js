@@ -22,6 +22,11 @@ async function main() {
     // const StoringHash = await ethers.getContractFactory("Treasury");
     // const hash = await upgrades.deployProxy(StoringHash, { initializer: 'initialize' });
     // const deploy = await hash.deployed();
+
+    //MMcontract
+    const Contract = await ethers.getContractFactory("MarketMaker");
+    const hash = await upgrades.deployProxy(Contract,{ initializer: 'initialize' });
+    const deploy = await hash.deployed();
   
     console.log("StoringHash Token address:", deploy.address);
   }
